@@ -20,4 +20,6 @@ export const signup = async (req: Request, res: Response) => {
   }
 };
 
-export const signOut = () => {};
+export const signOut = (req: Request, res: Response) => {
+  //delete jwt or some
+};

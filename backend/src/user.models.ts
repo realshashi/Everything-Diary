@@ -1,14 +1,13 @@
-import { Schema, model, connect } from "mongoose";
-import bcrypt from "bcrypt";
+import { Schema, model, connect, Types } from "mongoose";
 
 export interface IUser {
-  _id: string;
+  _id: Types.ObjectId;
   username: string;
   password: string;
 }
 
-const userSchema = new Schema<IUser>({
-  _id: { type: String },
+export const userSchema = new Schema<IUser>({
+  _id: { type: Types.ObjectId, ref: "UserId" },
   username: { type: String, required: true, unique: true },
   password: { type: String, required: true },
 });
@@ -16,16 +15,6 @@ const userSchema = new Schema<IUser>({
 export const UserModel = model<IUser>("User", userSchema);
 
 run().catch((err) => console.log(err));
-
-const saltRounds = 8;
-
-userSchema.pre("save", async function (next) {
-  const user = this;
-  if (user.isModified("password")) {
-    user.password = await bcrypt.hash(user.password, saltRounds);
-  }
-  next();
-});
 
 async function run() {
   await connect("mongodb://localhost");

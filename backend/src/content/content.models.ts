@@ -9,7 +9,7 @@ export interface IContent {
 }
 
 const contentSchema = new Schema<IContent>({
-  _id: { type: String, required: true, unique: true },
+  _id: { type: String, ref = { userId }, required: true, unique: true },
   type: { type: String, required: true },
   link: { type: String, required: true },
   title: { type: String, required: true },
@@ -27,7 +27,7 @@ async function run() {
     type: "admintype",
     link: "adminlink.com",
     title: "admintitle",
-    tags: "#admin,#content",
+    tags: 1,
   });
   await content.save();
   console.log(content._id);
