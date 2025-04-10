@@ -8,33 +8,19 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UserModel = void 0;
+exports.UserModel = exports.userSchema = void 0;
 const mongoose_1 = require("mongoose");
-const bcrypt_1 = __importDefault(require("bcrypt"));
-const userSchema = new mongoose_1.Schema({
-    _id: { type: String },
+exports.userSchema = new mongoose_1.Schema({
+    _id: { type: mongoose_1.Types.ObjectId, ref: "UserId" },
     username: { type: String, required: true, unique: true },
     password: { type: String, required: true },
 });
-exports.UserModel = (0, mongoose_1.model)("User", userSchema);
+exports.UserModel = (0, mongoose_1.model)("User", exports.userSchema);
 run().catch((err) => console.log(err));
-const saltRounds = 8;
-userSchema.pre("save", function (next) {
-    return __awaiter(this, void 0, void 0, function* () {
-        const user = this;
-        if (user.isModified("password")) {
-            user.password = yield bcrypt_1.default.hash(user.password, saltRounds);
-        }
-        next();
-    });
-});
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
-        yield (0, mongoose_1.connect)("mongodb://localhost:27017");
+        yield (0, mongoose_1.connect)("mongodb://localhost");
         const user = new exports.UserModel({
             username: "john",
             password: "john@gmail.com",

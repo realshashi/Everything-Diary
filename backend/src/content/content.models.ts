@@ -1,7 +1,7 @@
-import { Schema, model, connect } from "mongoose";
+import { Schema, model, connect, Types, ObjectId } from "mongoose";
 
 export interface IContent {
-  _id: string;
+  _id: ObjectId;
   type: string;
   link: string;
   title: string;
@@ -9,7 +9,7 @@ export interface IContent {
 }
 
 const contentSchema = new Schema<IContent>({
-  _id: { type: String, ref = { userId }, required: true, unique: true },
+  _id: { type: Types.ObjectId, ref: "userId", required: true, unique: true },
   type: { type: String, required: true },
   link: { type: String, required: true },
   title: { type: String, required: true },
@@ -23,11 +23,10 @@ run().catch((err) => console.log(err));
 async function run() {
   await connect("mongodb://localhost:27017");
   const content = new ContentModel({
-    _id: "1admin",
     type: "admintype",
     link: "adminlink.com",
     title: "admintitle",
-    tags: 1,
+    tags: "",
   });
   await content.save();
   console.log(content._id);

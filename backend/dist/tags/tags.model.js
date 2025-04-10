@@ -9,27 +9,17 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ContentModel = void 0;
+exports.TagsModel = void 0;
 const mongoose_1 = require("mongoose");
-const contentSchema = new mongoose_1.Schema({
-    _id: { type: mongoose_1.Types.ObjectId, ref: "userId", required: true, unique: true },
-    type: { type: String, required: true },
-    link: { type: String, required: true },
-    title: { type: String, required: true },
-    tags: { type: String },
+const tagsSchema = new mongoose_1.Schema({
+    _id: { type: mongoose_1.Types.ObjectId, ref: "UserId", unique: true, required: true },
+    tagId: { type: String, unique: true },
+    tagTitle: { type: String, require: true, unique: true },
 });
-exports.ContentModel = (0, mongoose_1.model)("Content", contentSchema);
-run().catch((err) => console.log(err));
+exports.TagsModel = (0, mongoose_1.model)("Tags", tagsSchema);
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         yield (0, mongoose_1.connect)("mongodb://localhost:27017");
-        const content = new exports.ContentModel({
-            type: "admintype",
-            link: "adminlink.com",
-            title: "admintitle",
-            tags: "",
-        });
-        yield content.save();
-        console.log(content._id);
     });
 }
+run();

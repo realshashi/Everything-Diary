@@ -1,5 +1,6 @@
 import { UserModel, IUser } from "./user.models";
 import bcrypt from "bcrypt";
+
 export async function register(user: IUser): Promise<void> {
   try {
     await UserModel.create(user);

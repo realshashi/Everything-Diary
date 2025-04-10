@@ -32,5 +32,7 @@ const signup = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.signup = signup;
-const signOut = () => { };
+const signOut = (req, res) => {
+    //delete jwt or some
+};
 exports.signOut = signOut;
