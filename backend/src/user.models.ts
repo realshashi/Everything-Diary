@@ -1,4 +1,11 @@
-import { Schema, model, connect, Types, ObjectId } from "mongoose";
+import {
+  Schema,
+  model,
+  connect,
+  Types,
+  ObjectId,
+  createConnection,
+} from "mongoose";
 
 export interface IUser {
   _id: ObjectId;
@@ -17,8 +24,9 @@ export const UserModel = model<IUser>("User", userSchema);
 run().catch((err) => console.log(err));
 
 async function run() {
-  await connect("mongodb://localhost");
+  await createConnection("mongodb://localhost:27017/");
   const user = new UserModel({
+    _id: "1",
     username: "john",
     password: "john@gmail.com",
   });

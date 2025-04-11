@@ -19,7 +19,7 @@ const tagsSchema = new mongoose_1.Schema({
 exports.TagsModel = (0, mongoose_1.model)("Tags", tagsSchema);
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
-        yield (0, mongoose_1.connect)("mongodb://localhost:27017");
+        yield (0, mongoose_1.createConnection)("mongodb://localhost:27017/");
     });
 }
 run();

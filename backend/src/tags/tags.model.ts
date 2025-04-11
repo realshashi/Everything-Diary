@@ -1,4 +1,4 @@
-import { Schema, model, connect, Types, ObjectId } from "mongoose";
+import { Schema, model, connect, Types, ObjectId, createConnection } from "mongoose";
 export interface ITags {
   _id: ObjectId;
   tagId: string;
@@ -12,6 +12,6 @@ const tagsSchema = new Schema<ITags>({
 
 export const TagsModel = model<ITags>("Tags", tagsSchema);
 async function run() {
-  await connect("mongodb://localhost:27017");
+  await createConnection("mongodb://localhost:27017/");
 }
 run();

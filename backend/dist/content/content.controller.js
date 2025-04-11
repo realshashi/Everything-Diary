@@ -18,8 +18,15 @@ axios_1.default;
 const content_models_1 = require("./content.models");
 const react_router_dom_1 = require("react-router-dom");
 const getAllContent = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const responsecontent = yield axios_1.default.get("localhost:5000/api/v1/content");
-    return responsecontent.data;
+    const responsecontent = yield content_models_1.ContentModel.findOne({
+        _id: req.params._id,
+    }).populate("_id", "username");
+    try {
+        res.json(responsecontent);
+    }
+    catch (error) {
+        throw error;
+    }
 });
 exports.getAllContent = getAllContent;
 const deleteContentOne = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -50,20 +57,14 @@ const createShareableLink = (req, res) => __awaiter(void 0, void 0, void 0, func
 });
 exports.createShareableLink = createShareableLink;
 const getUserContent = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const userSearch = yield content_models_1.ContentModel.findById({
+    const searchUserContent = yield content_models_1.ContentModel.findOne({
         _id: req.params._id,
-    });
-    if (!userSearch) {
-        return res.status(404);
+    }).populate("userInfo", "username");
+    try {
+        res.json(searchUserContent);
     }
-    else {
-        return res.json({
-            type: req.params.type,
-            link: req.params.link,
-            title: req.params.title,
-            tags: req.params.tags,
-        });
+    catch (error) {
+        throw error;
     }
 });
 exports.getUserContent = getUserContent;
-//search user with username

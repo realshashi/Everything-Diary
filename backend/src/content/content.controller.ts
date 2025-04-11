@@ -7,7 +7,7 @@ import { redirect } from "react-router-dom";
 export const getAllContent = async (req: Request, res: Response) => {
   const responsecontent = await ContentModel.findOne({
     _id: req.params._id,
-  }).populate("userInfo", "username");
+  }).populate("_id", "username");
   try {
     res.json(responsecontent);
   } catch (error) {
