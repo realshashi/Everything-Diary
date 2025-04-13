@@ -12,11 +12,11 @@ export const loginOne = async (req: Request, res: Response) => {
 };
 
 export const signup = async (req: Request, res: Response) => {
-  const registerUser = await register(req.body);
-  if (registerUser == null) {
+  try {
+    await register(req.body);
+  } catch (error) {
     console.log("signup failed");
-  } else {
-    console.log("signup successful");
+    console.log(error);
   }
 };
 

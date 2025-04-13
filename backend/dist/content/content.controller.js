@@ -19,8 +19,8 @@ const content_models_1 = require("./content.models");
 const react_router_dom_1 = require("react-router-dom");
 const getAllContent = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const responsecontent = yield content_models_1.ContentModel.findOne({
-        _id: req.params._id,
-    }).populate("_id", "username");
+        userId: req.params.userId,
+    }).populate("userId", "username");
     try {
         res.json(responsecontent);
     }
@@ -30,7 +30,9 @@ const getAllContent = (req, res) => __awaiter(void 0, void 0, void 0, function* 
 });
 exports.getAllContent = getAllContent;
 const deleteContentOne = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const deleteResult = yield content_models_1.ContentModel.deleteOne({ _id: req.params._id });
+    const deleteResult = yield content_models_1.ContentModel.deleteOne({
+        userId: req.params.userId,
+    });
     if (deleteResult.deletedCount === 0) {
         res.status(404);
         res.send("user not found");
@@ -39,7 +41,7 @@ const deleteContentOne = (req, res) => __awaiter(void 0, void 0, void 0, functio
 exports.deleteContentOne = deleteContentOne;
 const addContentOne = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const addedResult = new content_models_1.ContentModel({
-        _id: req.params._id,
+        userId: req.params.userId,
         type: req.params.type,
         link: req.params.link,
         title: req.params.title,
@@ -50,7 +52,7 @@ const addContentOne = (req, res) => __awaiter(void 0, void 0, void 0, function* 
 exports.addContentOne = addContentOne;
 const createShareableLink = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const selectContentForSharing = yield content_models_1.ContentModel.findOne({
-        _id: req.params._id,
+        userId: req.params.userId,
     });
     const shareableLink = `localhost:5000/api/v1/content/${selectContentForSharing}`;
     (0, react_router_dom_1.redirect)(shareableLink);
@@ -58,8 +60,8 @@ const createShareableLink = (req, res) => __awaiter(void 0, void 0, void 0, func
 exports.createShareableLink = createShareableLink;
 const getUserContent = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const searchUserContent = yield content_models_1.ContentModel.findOne({
-        _id: req.params._id,
-    }).populate("userInfo", "username");
+        userId: req.params.userId,
+    }).populate("userId", "username");
     try {
         res.json(searchUserContent);
     }

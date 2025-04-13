@@ -12,7 +12,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserModel = exports.userSchema = void 0;
 const mongoose_1 = require("mongoose");
 exports.userSchema = new mongoose_1.Schema({
-    _id: { type: mongoose_1.Types.ObjectId, ref: "UserId" },
     username: { type: String, required: true, unique: true },
     password: { type: String, required: true },
 });
@@ -21,12 +20,5 @@ run().catch((err) => console.log(err));
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         yield (0, mongoose_1.createConnection)("mongodb://localhost:27017/");
-        const user = new exports.UserModel({
-            _id: "1",
-            username: "john",
-            password: "john@gmail.com",
-        });
-        yield user.save();
-        console.log(user.username);
     });
 }

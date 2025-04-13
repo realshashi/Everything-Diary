@@ -23,12 +23,12 @@ const loginOne = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 });
 exports.loginOne = loginOne;
 const signup = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const registerUser = yield (0, user_service_1.register)(req.body);
-    if (registerUser == null) {
-        console.log("signup failed");
+    try {
+        yield (0, user_service_1.register)(req.body);
     }
-    else {
-        console.log("signup successful");
+    catch (error) {
+        console.log("signup failed");
+        console.log(error);
     }
 });
 exports.signup = signup;

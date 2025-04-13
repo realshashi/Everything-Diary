@@ -1,18 +1,36 @@
-import axios from "axios";
+import { useEffect, useState } from "react";
+
 function Dashboard() {
-  async function fetchContent() {
-    const response = await axios.get("http://localhost:3000/api/v1/content");
-    console.log(response.data);
-    return response.data;
-  }
+  type Content = {
+    userId: object;
+    type: string;
+    link: string;
+    title: string;
+    tags: object;
+  };
+  const [content, setContent] = useState<Content[]>([]);
+
+  useEffect(() => {
+    fetch("http://localhost:3000/api/v1/content").then(async function (res) {
+      const json = await res.json();
+      setContent(json.content);
+    });
+  }, []);
   return (
-    <div>
-      <h1>dashboard</h1>
+    <>
       <div>
-        <button onClick={fetchContent}>fetch content</button>
-        <div id="fetchedContent"></div>
+        {content.map(function (content) {
+          return (
+            <>
+              <div>
+                <h1>{content.title}</h1>
+                <h5>{content.type}</h5>
+              </div>
+            </>
+          );
+        })}
       </div>
-    </div>
+    </>
   );
 }
 

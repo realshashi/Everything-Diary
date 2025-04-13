@@ -7,7 +7,10 @@ import {
   createShareableLink,
   getUserContent,
 } from "./content/content.controller";
+import cors from "cors";
 const app = express();
+
+app.use(cors());
 app.use(express.json());
 app.post("/api/v1/signup", signup);
 app.post("/api/v1/signin", loginOne);

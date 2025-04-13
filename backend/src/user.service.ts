@@ -3,7 +3,7 @@ import bcrypt from "bcrypt";
 
 export async function register(user: IUser): Promise<void> {
   try {
-    await UserModel.create(user);
+    UserModel.create(user);
   } catch (error) {
     throw error;
   }
@@ -39,7 +39,7 @@ export const authHeader = () => {
 };
 
 import axios from "axios";
-let baseUrl = "http://localhost:8080/";
+let baseUrl = "http://localhost:3000/";
 const ApiHeader = axios.create({
   baseURL: baseUrl,
 });

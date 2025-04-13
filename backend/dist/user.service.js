@@ -20,7 +20,7 @@ const bcrypt_1 = __importDefault(require("bcrypt"));
 function register(user) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            yield user_models_1.UserModel.create(user);
+            user_models_1.UserModel.create(user);
         }
         catch (error) {
             throw error;
@@ -59,7 +59,7 @@ const authHeader = () => {
 };
 exports.authHeader = authHeader;
 const axios_1 = __importDefault(require("axios"));
-let baseUrl = "http://localhost:8080/";
+let baseUrl = "http://localhost:3000/";
 const ApiHeader = axios_1.default.create({
     baseURL: baseUrl,
 });
